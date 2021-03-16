@@ -1,0 +1,87 @@
+﻿@model IEnumerable<cryptokeepers2.Models.alert>
+
+@{
+    ViewBag.Title = "Index";
+    string Val = @DateTime.Now.ToShortDateString();
+}
+
+<h2>Index</h2>
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a href=@Url.Action("Index","alerts")>Back to Full List</a>
+        </p>
+    </div>
+</form>
+<p>
+    @Html.ActionLink("Create New", "Create")
+    <button class="btn btn-default" onclick="exportTableToCSV('Report-@Val-.csv')">Download CSV</button>
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.concern)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.notes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reported)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.coin1.coinname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.entity1.entityname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.flag1.flagname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.priority1.priorityname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.type1.typename)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.concern)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reported)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.coin1.coinname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.entity1.entityname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.flag1.flagname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.priority1.priorityname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.type1.typename)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>

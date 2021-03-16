@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c7edcda154a24ef9b0096cdb43e642ef" Name="Diagram1">
+        <EntityTypeShape EntityType="cryptokeepersdb1Model.alert" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="cryptokeepersdb1Model.coin" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="cryptokeepersdb1Model.entity" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="cryptokeepersdb1Model.flag" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="cryptokeepersdb1Model.priority" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="cryptokeepersdb1Model.tx" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cryptokeepersdb1Model.type" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
+        <AssociationConnector Association="cryptokeepersdb1Model.coingrp" ManuallyRouted="false" />
+        <AssociationConnector Association="cryptokeepersdb1Model.entitygrp" ManuallyRouted="false" />
+        <AssociationConnector Association="cryptokeepersdb1Model.flaggrp" ManuallyRouted="false" />
+        <AssociationConnector Association="cryptokeepersdb1Model.prioritygrp" ManuallyRouted="false" />
+        <AssociationConnector Association="cryptokeepersdb1Model.typegrp" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

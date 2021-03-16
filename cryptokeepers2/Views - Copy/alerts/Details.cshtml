@@ -1,0 +1,74 @@
+﻿@model cryptokeepers2.Models.alert
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>alert</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.concern)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.concern)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.reported)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.reported)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.entity1.entityname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.entity1.entityname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.flag1.flagname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.flag1.flagname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.priority1.priorityname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.priority1.priorityname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.type1.typename)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type1.typename)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

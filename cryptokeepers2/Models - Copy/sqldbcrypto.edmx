@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="cryptokeepersdb1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="alerts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="tinyint" />
+          <Property Name="concern" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="flag" Type="tinyint" />
+          <Property Name="priority" Type="tinyint" />
+          <Property Name="entity" Type="smallint" />
+          <Property Name="notes" Type="nvarchar(max)" />
+          <Property Name="reported" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="entities">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="entityname" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="flags">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="flagname" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="priorities">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="priorityname" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="types">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="typename" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="entitygrp">
+          <End Role="entities" Type="Self.entities" Multiplicity="0..1" />
+          <End Role="alerts" Type="Self.alerts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="entities">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alerts">
+              <PropertyRef Name="entity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="flaggrp">
+          <End Role="flags" Type="Self.flags" Multiplicity="0..1" />
+          <End Role="alerts" Type="Self.alerts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="flags">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alerts">
+              <PropertyRef Name="flag" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="prioritygrp">
+          <End Role="priorities" Type="Self.priorities" Multiplicity="0..1" />
+          <End Role="alerts" Type="Self.alerts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="priorities">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alerts">
+              <PropertyRef Name="priority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="typegrp">
+          <End Role="types" Type="Self.types" Multiplicity="0..1" />
+          <End Role="alerts" Type="Self.alerts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alerts">
+              <PropertyRef Name="type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="cryptokeepersdb1ModelStoreContainer">
+          <EntitySet Name="alerts" EntityType="Self.alerts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="entities" EntityType="Self.entities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="flags" EntityType="Self.flags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="priorities" EntityType="Self.priorities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="types" EntityType="Self.types" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="entitygrp" Association="Self.entitygrp">
+            <End Role="entities" EntitySet="entities" />
+            <End Role="alerts" EntitySet="alerts" />
+          </AssociationSet>
+          <AssociationSet Name="flaggrp" Association="Self.flaggrp">
+            <End Role="flags" EntitySet="flags" />
+            <End Role="alerts" EntitySet="alerts" />
+          </AssociationSet>
+          <AssociationSet Name="prioritygrp" Association="Self.prioritygrp">
+            <End Role="priorities" EntitySet="priorities" />
+            <End Role="alerts" EntitySet="alerts" />
+          </AssociationSet>
+          <AssociationSet Name="typegrp" Association="Self.typegrp">
+            <End Role="types" EntitySet="types" />
+            <End Role="alerts" EntitySet="alerts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="cryptokeepersdb1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="alert">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="Byte" />
+          <Property Name="concern" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="flag" Type="Byte" />
+          <Property Name="priority" Type="Byte" />
+          <Property Name="entity" Type="Int16" />
+          <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="reported" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="entity1" Relationship="Self.entitygrp" FromRole="alerts" ToRole="entities" />
+          <NavigationProperty Name="flag1" Relationship="Self.flaggrp" FromRole="alerts" ToRole="flags" />
+          <NavigationProperty Name="priority1" Relationship="Self.prioritygrp" FromRole="alerts" ToRole="priorities" />
+          <NavigationProperty Name="type1" Relationship="Self.typegrp" FromRole="alerts" ToRole="types" />
+        </EntityType>
+        <EntityType Name="entity">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="entityname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="alerts" Relationship="Self.entitygrp" FromRole="entities" ToRole="alerts" />
+        </EntityType>
+        <EntityType Name="flag">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="flagname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="alerts" Relationship="Self.flaggrp" FromRole="flags" ToRole="alerts" />
+        </EntityType>
+        <EntityType Name="priority">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="priorityname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="alerts" Relationship="Self.prioritygrp" FromRole="priorities" ToRole="alerts" />
+        </EntityType>
+        <EntityType Name="type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="typename" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="alerts" Relationship="Self.typegrp" FromRole="types" ToRole="alerts" />
+        </EntityType>
+        <Association Name="entitygrp">
+          <End Role="entities" Type="Self.entity" Multiplicity="0..1" />
+          <End Role="alerts" Type="Self.alert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="entities">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alerts">
+              <PropertyRef Name="entity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="flaggrp">
+          <End Role="flags" Type="Self.flag" Multiplicity="0..1" />
+          <End Role="alerts" Type="Self.alert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="flags">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alerts">
+              <PropertyRef Name="flag" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="prioritygrp">
+          <End Role="priorities" Type="Self.priority" Multiplicity="0..1" />
+          <End Role="alerts" Type="Self.alert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="priorities">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alerts">
+              <PropertyRef Name="priority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="typegrp">
+          <End Role="types" Type="Self.type" Multiplicity="0..1" />
+          <End Role="alerts" Type="Self.alert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alerts">
+              <PropertyRef Name="type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="cryptokeepersdb1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="alerts" EntityType="Self.alert" />
+          <EntitySet Name="entities" EntityType="Self.entity" />
+          <EntitySet Name="flags" EntityType="Self.flag" />
+          <EntitySet Name="priorities" EntityType="Self.priority" />
+          <EntitySet Name="types" EntityType="Self.type" />
+          <AssociationSet Name="entitygrp" Association="Self.entitygrp">
+            <End Role="entities" EntitySet="entities" />
+            <End Role="alerts" EntitySet="alerts" />
+          </AssociationSet>
+          <AssociationSet Name="flaggrp" Association="Self.flaggrp">
+            <End Role="flags" EntitySet="flags" />
+            <End Role="alerts" EntitySet="alerts" />
+          </AssociationSet>
+          <AssociationSet Name="prioritygrp" Association="Self.prioritygrp">
+            <End Role="priorities" EntitySet="priorities" />
+            <End Role="alerts" EntitySet="alerts" />
+          </AssociationSet>
+          <AssociationSet Name="typegrp" Association="Self.typegrp">
+            <End Role="types" EntitySet="types" />
+            <End Role="alerts" EntitySet="alerts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="cryptokeepersdb1ModelStoreContainer" CdmEntityContainer="cryptokeepersdb1Entities">
+          <EntitySetMapping Name="alerts">
+            <EntityTypeMapping TypeName="cryptokeepersdb1Model.alert">
+              <MappingFragment StoreEntitySet="alerts">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="concern" ColumnName="concern" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+                <ScalarProperty Name="priority" ColumnName="priority" />
+                <ScalarProperty Name="entity" ColumnName="entity" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="reported" ColumnName="reported" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="entities">
+            <EntityTypeMapping TypeName="cryptokeepersdb1Model.entity">
+              <MappingFragment StoreEntitySet="entities">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="entityname" ColumnName="entityname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="flags">
+            <EntityTypeMapping TypeName="cryptokeepersdb1Model.flag">
+              <MappingFragment StoreEntitySet="flags">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="flagname" ColumnName="flagname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="priorities">
+            <EntityTypeMapping TypeName="cryptokeepersdb1Model.priority">
+              <MappingFragment StoreEntitySet="priorities">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="priorityname" ColumnName="priorityname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="types">
+            <EntityTypeMapping TypeName="cryptokeepersdb1Model.type">
+              <MappingFragment StoreEntitySet="types">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="typename" ColumnName="typename" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
