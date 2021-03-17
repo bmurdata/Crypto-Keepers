@@ -1,0 +1,119 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Insert_row_(V2)": {
+                "inputs": {
+                    "body": {
+                        "coin": "@body('Parse_JSON')?['coin']",
+                        "concern": "@body('Parse_JSON')?['concern']",
+                        "entity": "@body('Parse_JSON')?['entity']",
+                        "flag": "@body('Parse_JSON')?['flag']",
+                        "notes": "@body('Parse_JSON')?['notes']",
+                        "priority": "@body('Parse_JSON')?['priority']",
+                        "reported": "@body('Parse_JSON')?['reportdate']",
+                        "type": "@body('Parse_JSON')?['type']"
+                    },
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['sql_1']['connectionId']"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('default'))},@{encodeURIComponent(encodeURIComponent('default'))}/tables/@{encodeURIComponent(encodeURIComponent('[dbo].[alerts]'))}/items"
+                },
+                "runAfter": {
+                    "Parse_JSON": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
+            "Parse_JSON": {
+                "inputs": {
+                    "content": "@triggerBody()['preview']",
+                    "schema": {
+                        "properties": {
+                            "coin": {
+                                "type": "integer"
+                            },
+                            "concern": {
+                                "type": "string"
+                            },
+                            "entity": {
+                                "type": "integer"
+                            },
+                            "flag": {
+                                "type": "integer"
+                            },
+                            "id": {
+                                "type": "integer"
+                            },
+                            "notes": {
+                                "type": "string"
+                            },
+                            "priority": {
+                                "type": "integer"
+                            },
+                            "reportdate": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "integer"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {},
+                "type": "ParseJson"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "When_a_file_is_created": {
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['slack']['connectionId']"
+                        }
+                    },
+                    "method": "get",
+                    "path": "/trigger/files.list",
+                    "queries": {
+                        "channel": "C01QCS0A0SK"
+                    }
+                },
+                "recurrence": {
+                    "frequency": "Second",
+                    "interval": 2
+                },
+                "splitOn": "@triggerBody()",
+                "type": "ApiConnection"
+            }
+        }
+    },
+    "parameters": {
+        "$connections": {
+            "value": {
+                "slack": {
+                    "connectionId": "/subscriptions/fe2e594d-c70b-4bc3-a544-1d4a8274414f/resourceGroups/techsprintteam2-rg/providers/Microsoft.Web/connections/slack",
+                    "connectionName": "slack",
+                    "id": "/subscriptions/fe2e594d-c70b-4bc3-a544-1d4a8274414f/providers/Microsoft.Web/locations/eastus/managedApis/slack"
+                },
+                "sql_1": {
+                    "connectionId": "/subscriptions/fe2e594d-c70b-4bc3-a544-1d4a8274414f/resourceGroups/techsprintteam2-rg/providers/Microsoft.Web/connections/sql-2",
+                    "connectionName": "sql-2",
+                    "id": "/subscriptions/fe2e594d-c70b-4bc3-a544-1d4a8274414f/providers/Microsoft.Web/locations/eastus/managedApis/sql"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,112 @@
+[
+        {"slack":
+        {
+            "kind": "V1",
+            "properties": {
+                "displayName": "kenneth.obrien",
+                "authenticatedUser": {},
+                "statuses": [
+                    {
+                        "status": "Connected"
+                    }
+                ],
+                "parameterValues": {},
+                "customParameterValues": {},
+                "createdTime": "2021-03-10T15:21:38.1918905Z",
+                "changedTime": "2021-03-10T15:21:57.314696Z",
+                "api": {
+                    "name": "slack",
+                    "displayName": "Slack",
+                    "description": "Slack is a team communication tool, that brings together all of your team communications in one place, instantly searchable and available wherever you go.",
+                    "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1441/1.0.1441.2334/slack/icon.png",
+                    "brandColor": "#78D4B6",
+                    "category": "Standard",
+                    "id": "/subscriptions/fe2e594d-c70b-4bc3-a544-1d4a8274414f/providers/Microsoft.Web/locations/eastus/managedApis/slack",
+                    "type": "Microsoft.Web/locations/managedApis"
+                },
+                "testLinks": [
+                    {
+                        "requestUri": "https://management.azure.com:443/subscriptions/fe2e594d-c70b-4bc3-a544-1d4a8274414f/resourceGroups/techsprintteam2-rg/providers/Microsoft.Web/connections/slack/extensions/proxy/conversations.list?api-version=2018-07-01-preview",
+                        "method": "get"
+                    }
+                ],
+                "testRequests": [
+                    {
+                        "body": {
+                            "request": {
+                                "method": "get",
+                                "path": "conversations.list"
+                            }
+                        },
+                        "requestUri": "https://management.azure.com:443/subscriptions/fe2e594d-c70b-4bc3-a544-1d4a8274414f/resourceGroups/techsprintteam2-rg/providers/Microsoft.Web/connections/slack/dynamicInvoke?api-version=2018-07-01-preview",
+                        "method": "POST"
+                    }
+                ]
+            },
+            "id": "/subscriptions/fe2e594d-c70b-4bc3-a544-1d4a8274414f/resourceGroups/techsprintteam2-rg/providers/Microsoft.Web/connections/slack",
+            "name": "slack",
+            "type": "Microsoft.Web/connections",
+            "location": "eastus"
+        }
+},
+    {"sql-2":
+
+        {
+            "kind": "V1",
+            "properties": {
+                "displayName": "cryptdb1-up",
+                "authenticatedUser": {},
+                "statuses": [
+                    {
+                        "status": "Connected"
+                    }
+                ],
+                "parameterValueSet": {
+                    "name": "sqlAuthentication",
+                    "values": {
+                        "server": {
+                            "value": "cryptokeeperssql1.database.windows.net"
+                        },
+                        "database": {
+                            "value": "cryptokeepersdb1"
+                        }
+                    }
+                },
+                "customParameterValues": {},
+                "createdTime": "2021-03-10T17:02:23.3726809Z",
+                "changedTime": "2021-03-10T17:02:23.3726809Z",
+                "api": {
+                    "name": "sql",
+                    "displayName": "SQL Server",
+                    "description": "Microsoft SQL Server is a relational database management system developed by Microsoft. Connect to SQL Server to manage data. You can perform various actions such as create, update, get, and delete on rows in a table.",
+                    "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1449/1.0.1449.2354/sql/icon.png",
+                    "brandColor": "#ba141a",
+                    "category": "Standard",
+                    "id": "/subscriptions/fe2e594d-c70b-4bc3-a544-1d4a8274414f/providers/Microsoft.Web/locations/eastus/managedApis/sql",
+                    "type": "Microsoft.Web/locations/managedApis"
+                },
+                "testLinks": [
+                    {
+                        "requestUri": "https://management.azure.com:443/subscriptions/fe2e594d-c70b-4bc3-a544-1d4a8274414f/resourceGroups/techsprintteam2-rg/providers/Microsoft.Web/connections/sql-2/extensions/proxy/testconnection?api-version=2018-07-01-preview",
+                        "method": "get"
+                    }
+                ],
+                "testRequests": [
+                    {
+                        "body": {
+                            "request": {
+                                "method": "get",
+                                "path": "testconnection"
+                            }
+                        },
+                        "requestUri": "https://management.azure.com:443/subscriptions/fe2e594d-c70b-4bc3-a544-1d4a8274414f/resourceGroups/techsprintteam2-rg/providers/Microsoft.Web/connections/sql-2/dynamicInvoke?api-version=2018-07-01-preview",
+                        "method": "POST"
+                    }
+                ]
+            },
+            "id": "/subscriptions/fe2e594d-c70b-4bc3-a544-1d4a8274414f/resourceGroups/techsprintteam2-rg/providers/Microsoft.Web/connections/sql-2",
+            "name": "sql-2",
+            "type": "Microsoft.Web/connections",
+            "location": "eastus"
+        }
+}]

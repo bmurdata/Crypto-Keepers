@@ -1,0 +1,156 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Execute_stored_procedure_(V2)": {
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['sql_2']['connectionId']"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('default'))},@{encodeURIComponent(encodeURIComponent('default'))}/procedures/@{encodeURIComponent(encodeURIComponent('[dbo].[alertbot]'))}"
+                },
+                "runAfter": {},
+                "type": "ApiConnection"
+            },
+            "For_each": {
+                "actions": {
+                    "Post_message_2": {
+                        "inputs": {
+                            "host": {
+                                "connection": {
+                                    "name": "@parameters('$connections')['slack_1']['connectionId']"
+                                }
+                            },
+                            "method": "post",
+                            "path": "/chat.postMessage",
+                            "queries": {
+                                "channel": "team-2-alert-bot",
+                                "text": "DFS Crypto-Keepers Alert:\n===================================================\nConcern: @{items('For_each')?['concern']}\nPriority: @{items('For_each')?['priorityname']}\nEntity: @{items('For_each')?['entityname']}\nMalicious Activity: @{items('For_each')?['typename']}\nCoin: @{items('For_each')?['coinname']}\nFlag/Address Type: @{items('For_each')?['flagname']}\n\n==================================================\nPlease take action to stop further activity.   Contact DFS for more information. "
+                            }
+                        },
+                        "runAfter": {},
+                        "type": "ApiConnection"
+                    }
+                },
+                "foreach": "@body('Parse_JSON')?['Table1']",
+                "runAfter": {
+                    "Parse_JSON": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Foreach"
+            },
+            "Parse_JSON": {
+                "inputs": {
+                    "content": "@body('Execute_stored_procedure_(V2)')?['resultsets']",
+                    "schema": {
+                        "properties": {
+                            "Table1": {
+                                "items": {
+                                    "properties": {
+                                        "coinname": {},
+                                        "concern": {
+                                            "type": "string"
+                                        },
+                                        "entityname": {
+                                            "type": "string"
+                                        },
+                                        "flagname": {},
+                                        "priorityname": {},
+                                        "typename": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "typename",
+                                        "concern",
+                                        "flagname",
+                                        "priorityname",
+                                        "entityname",
+                                        "coinname"
+                                    ],
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {
+                    "Execute_stored_procedure_(V2)": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ParseJson"
+            },
+            "Post_message": {
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['slack_1']['connectionId']"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/chat.postMessage",
+                    "queries": {
+                        "channel": "team-2-alert-bot",
+                        "text": " "
+                    }
+                },
+                "runAfter": {
+                    "Execute_stored_procedure_(V2)": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "When_an_item_is_created_(V2)": {
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['sql_2']['connectionId']"
+                        }
+                    },
+                    "method": "get",
+                    "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('default'))},@{encodeURIComponent(encodeURIComponent('default'))}/tables/@{encodeURIComponent(encodeURIComponent('[dbo].[alerts]'))}/onnewitems"
+                },
+                "recurrence": {
+                    "frequency": "Second",
+                    "interval": 1
+                },
+                "splitOn": "@triggerBody()?['value']",
+                "type": "ApiConnection"
+            }
+        }
+    },
+    "parameters": {
+        "$connections": {
+            "value": {
+                "slack_1": {
+                    "connectionId": "/subscriptions/fe2e594d-c70b-4bc3-a544-1d4a8274414f/resourceGroups/techsprintteam2-rg/providers/Microsoft.Web/connections/slack-2",
+                    "connectionName": "slack-2",
+                    "id": "/subscriptions/fe2e594d-c70b-4bc3-a544-1d4a8274414f/providers/Microsoft.Web/locations/centralus/managedApis/slack"
+                },
+                "sql_2": {
+                    "connectionId": "/subscriptions/fe2e594d-c70b-4bc3-a544-1d4a8274414f/resourceGroups/techsprintteam2-rg/providers/Microsoft.Web/connections/sql-19",
+                    "connectionName": "sql-19",
+                    "id": "/subscriptions/fe2e594d-c70b-4bc3-a544-1d4a8274414f/providers/Microsoft.Web/locations/centralus/managedApis/sql"
+                }
+            }
+        }
+    }
+}
